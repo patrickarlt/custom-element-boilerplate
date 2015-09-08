@@ -57,6 +57,7 @@ As a rule for maximum compatibility with the largest number of tools you should 
 
 * `CustomEvent` for IE 9 and 10 - https://github.com/webmodules/custom-event and https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent
 * `document.RegisterElement` - https://github.com/WebReflection/document-register-element and http://caniuse.com/#feat=custom-elements
+* Patch `HTMLElement` so it can be extended by Babel in [Safari](src/polyfills/html-element.js)
 * The [Babel polyfill](http://babeljs.io/docs/usage/polyfill/)
 
 All of these polyfills come out to about 25kb minified and gzipped. Most of that is the Babel polyfill which is 22kb minified and gzipped. You can save 5kb by using [the shim from Core JS directly](https://github.com/zloirock/core-js#basic) directly and could likely save even more with a [custom build](https://github.com/zloirock/core-js#custom-build).
