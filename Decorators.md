@@ -17,25 +17,26 @@ class MyElement extends HTMLElement {
 ```js
 export default function bindEvent (event, selector, handler) {
   var callback;
-  return function(target) {
-    var attachedCallback = target.prototype.attachedCallback || new Function();
-    target.prototype.attachedCallback = function {
-      var callback = (e) => {
-        if(e.target.matches(selector)) {
+
+  return function (target) {
+    var attachedCallback = target.prototype.attachedCallback || function () {};
+    target.prototype.attachedCallback = function () {
+      callback = (e) => {
+        if (e.target.matches(selector)) {
           this[handler].call(this, e);
         }
-      }
-      this.addEventListener(event, callback, /focus|blur/.test(eventName));
-      orginalAttachedCallback();
-    }
+      };
 
-    var detachedCallback = target.prototype.detachedCallback || new Function();
-    target.prototype.detachedCallback = function {
+      this.addEventListener(event, callback, /focus|blur/.test(event));
+      attachedCallback();
+    };
+
+    var detachedCallback = target.prototype.detachedCallback || function () {};
+    target.prototype.detachedCallback = function () {
       this.removeEventListener(event, callback);
-      orginalAttachedCallback();
-    }
-  }
-
+      detachedCallback();
+    };
+  };
 }
 ```
 
